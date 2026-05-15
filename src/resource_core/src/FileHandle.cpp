@@ -1,4 +1,5 @@
 #include "resource_core/FileHandle.hpp"
+
 namespace lab4::resource
 {
 

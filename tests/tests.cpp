@@ -1,7 +1,9 @@
 #include "resource_core/ResourceManager.hpp"
 #include "resource_core/resource_err.hpp"
 #include <catch2/catch_all.hpp>
-#include <fsream>
+#include <cstdio>
+#include <fstream>
+#include <string>
 
 using namespace lab4::resource;
 
@@ -21,13 +23,11 @@ TEST_CASE("ResourceManager logic tests", "[resource_manager]")
         auto res2 = manager.getResource(test_path);
 
         REQUIRE(res1.get() == res2.get());
-
         REQUIRE(res1->get() == res2->get());
     }
 
     SECTION("Resource is recreated after all shared_ptrs are destroyed")
     {
-
         void* raw_address_before = nullptr;
         {
             auto res1 = manager.getResource(test_path);
@@ -35,7 +35,6 @@ TEST_CASE("ResourceManager logic tests", "[resource_manager]")
         }
 
         auto res2 = manager.getResource(test_path);
-        void* raw_address_after = static_cast<void*>(res2.get());
 
         REQUIRE(res2 != nullptr);
         REQUIRE(res2->get() != nullptr);
