@@ -35,9 +35,12 @@ TEST_CASE("ResourceManager logic tests", "[resource_manager]")
         }
 
         auto res2 = manager.getResource(test_path);
+        void* raw_address_after = static_cast<void*>(res2.get());
 
         REQUIRE(res2 != nullptr);
         REQUIRE(res2->get() != nullptr);
+
+        REQUIRE(raw_address_before != raw_address_after);
     }
 
     SECTION("Throws ResourceError when file does not exist")
